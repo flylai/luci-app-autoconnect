@@ -16,4 +16,9 @@ sid = s:option(Value, "sid", translate("学号"))
 password = s:option(Value, "password", translate("密码"))
 password.password = true
 
+local apply = luci.http.formvalue("cbi.apply")
+if apply then
+    luci.sys.exec("/etc/init.d/AutoConnect start")
+end
+
 return m
