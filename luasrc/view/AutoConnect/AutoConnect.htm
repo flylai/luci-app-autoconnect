@@ -1,0 +1,27 @@
+<script type="text/javascript">//<![CDATA[
+    XHR.poll(3, '<%=url([[admin]], [[services]], [[AutoConnect]], [[status]])%>', null,
+        function (x, data) {
+            var tb = document.getElementById('network_status');
+            if (data && tb) {
+                if (data.status) {
+                    var links = '<em><b><font color="green">校园网已连接</font></b></em>';
+                    tb.innerHTML = links;
+                } else {
+                    tb.innerHTML = '<em><b><font color="red">校园网未连接</font></b></em>';
+                }
+            }
+        }
+    );
+//]]>
+</script>
+<style>
+    .mar-10 {
+        margin-left: 50px;
+        margin-right: 10px;
+    }
+</style>
+<fieldset class="cbi-section">
+    <p id="network_status">
+        <em><%:Collecting data...%></em>
+    </p>
+</fieldset>
