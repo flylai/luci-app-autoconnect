@@ -12,7 +12,7 @@ enable.description = translate("启用插件即可自动登录校园网")
 enable.default = 0
 enable.rmempty = false
 
-username = s:option(Value, "sid", translate("学号"))
+sid = s:option(Value, "sid", translate("学号"))
 password = s:option(Value, "password", translate("密码"))
 password.password = true
 
