@@ -1,0 +1,58 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+STOP=10
+
+enable="$(uci get AutoConnect.@AutoConnect[0].enable)"
+sid="$(uci get AutoConnect.@AutoConnect[0].sid)"
+password="$(uci get AutoConnect.@AutoConnect[0].password)"
+
+
+start() {
+    stop
+
+    [ "${enable}" -ne "1" ] && exit 0
+
+    echo "0 7 * * * sh /etc/init.d/AutoConnect connect >/dev/null 2>&1 &" >> /var/spool/cron/crontabs/root
+
+    connect >/dev/null 2>&1
+}
+
+stop() {
+    sed -i '/AutoConnect/d' /var/spool/cron/crontabs/root
+}
+
+check_connect() {
+    login_text=$(curl -s -N 172.16.2.2 | grep -o -E "uid='[0-9]+'")
+
+    if [ "${login_text}" == "" ]; then
+        echo "false"
+    else
+        echo "true"
+    fi
+}
+
+connect() {
+    result=$(curl -s -N "http://172.16.2.2/drcom/login?callback=dr1004&DDDDD=${sid}&upass=${password}&0MKKey=123456&R1=0&R3=2&R6=0&para=00&v6ip=&v=8210")
+    echo ${result}
+}
+
+arg=$1
+shift
+case $arg in
+stop)
+    stop
+    ;;
+start)
+    start
+    ;;
+connect)
+    connect
+    ;;
+check)
+    check_connect
+    ;;
+enable)
+    echo "fuckyou!" > 2
+    ;;
+esac

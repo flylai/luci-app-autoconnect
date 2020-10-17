@@ -1,0 +1,17 @@
+#!/bin/sh
+
+uci -q batch <<-EOF >/dev/null
+    delete ucitrack.@AutoConnect[-1]
+	add ucitrack AutoConnect
+	set ucitrack.@AutoConnect[-1].init=AutoConnect
+	commit ucitrack
+	delete firewall.AutoConnect
+	set firewall.AutoConnect=include
+	set firewall.AutoConnect.type=script
+	set firewall.AutoConnect.path=/var/etc/AutoConnect.include
+	set firewall.AutoConnect.reload=1
+	commit firewall
+EOF
+
+rm -f /tmp/luci-indexcache
+exit 0
