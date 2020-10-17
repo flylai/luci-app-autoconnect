@@ -1,4 +1,4 @@
 config AutoConnect
-    option enable ''
+    option enable '0'
     option sid ''
     option password ''
