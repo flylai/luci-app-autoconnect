@@ -1,5 +1,5 @@
 m = Map("AutoConnect", translate("校园网自动连接(桂林理工大学)"))
-m.description = translate("Source: https://github.com/flylai/Glut-network-AutoConnect")
+m.description = translate("Source: https://github.com/flylai/luci-app-autoconnect")
 
 m:section(SimpleSection).template = "AutoConnect/AutoConnect"
 
