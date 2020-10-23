@@ -13,7 +13,7 @@ start() {
 
     [ "${enable}" -ne "1" ] && exit 0
 
-    echo "0 7 * * * sh /etc/init.d/AutoConnect connect >/dev/null 2>&1 &" >> /var/spool/cron/crontabs/root
+    echo "10 7 * * * sh /etc/init.d/AutoConnect connect >/dev/null 2>&1 &" >> /var/spool/cron/crontabs/root
 
     connect >/dev/null 2>&1
 }
